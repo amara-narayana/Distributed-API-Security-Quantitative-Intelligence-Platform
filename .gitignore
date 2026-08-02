@@ -1,44 +1,47 @@
 ```
-# Compiled and build artifacts
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+target/
+.gradle/
+
+# Build artifacts
+build/
+dist/
 *.class
 *.o
 *.obj
+*.exe
+*.dll
+*.so
+*.a
 *.out
-target/
-build/
 
-# Dependencies
-.m2/
-.gradle/
-node_modules/
-__pycache__/
-*.egg-info/
-
-# Logs and temp files
-*.log
-*.tmp
+# IDE and editor files
+.vscode/
+.idea/
 *.swp
+*.swo
+*.tmp
 
-# Environment
+# Logs
+*.log
+
+# Environment files
 .env
 .env.local
 *.env.*
-
-# Editors
-.vscode/
-.idea/
-
-# System files
-.DS_Store
-Thumbs.db
 
 # Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# Maven specific
-pom.xml.tag
-pom.xml.releaseBackup
-dependency-reduced-pom.xml
+# OS specific
+.DS_Store
+Thumbs.db
 ```
