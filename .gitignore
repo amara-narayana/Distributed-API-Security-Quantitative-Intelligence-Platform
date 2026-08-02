@@ -1,0 +1,44 @@
+```
+# Compiled and build artifacts
+*.class
+*.o
+*.obj
+*.out
+target/
+build/
+
+# Dependencies
+.m2/
+.gradle/
+node_modules/
+__pycache__/
+*.egg-info/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# Maven specific
+pom.xml.tag
+pom.xml.releaseBackup
+dependency-reduced-pom.xml
+```

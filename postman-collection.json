@@ -1,0 +1,356 @@
+{
+  "info": {
+    "name": "Distributed API Security & Quantitative Intelligence Platform",
+    "description": "Complete API collection for testing all platform endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Device Management",
+      "item": [
+        {
+          "name": "Register Device",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publicIp\": \"192.168.1.100\",\n  \"privateIp\": \"10.0.0.10\",\n  \"region\": \"us-east-1\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/devices/register",
+              "host": ["{{base_url}}"],
+              "path": ["devices", "register"]
+            }
+          }
+        },
+        {
+          "name": "Send Heartbeat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"your-device-uuid-here\",\n  \"currentLoad\": 3,\n  \"status\": \"IDLE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/devices/heartbeat",
+              "host": ["{{base_url}}"],
+              "path": ["devices", "heartbeat"]
+            }
+          }
+        },
+        {
+          "name": "Get Available Devices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/devices/available",
+              "host": ["{{base_url}}"],
+              "path": ["devices", "available"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Job Management",
+      "item": [
+        {
+          "name": "Assign Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobType\": \"SECURITY_TEST\",\n  \"payload\": {\n    \"targetUrl\": \"https://api.example.com/users\",\n    \"testTypes\": [\"IDOR\", \"BOLA\"],\n    \"parameters\": {\n      \"userId\": \"12345\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/jobs/assign",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "assign"]
+            }
+          }
+        },
+        {
+          "name": "Submit Job Result",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"job-uuid-here\",\n  \"deviceId\": \"device-uuid-here\",\n  \"status\": \"COMPLETED\",\n  \"results\": [\n    {\n      \"testType\": \"IDOR\",\n      \"endpoint\": \"https://api.example.com/users/12345\",\n      \"vulnerabilityFound\": true,\n      \"severity\": \"HIGH\",\n      \"details\": {\n        \"description\": \"Able to access other user's data by incrementing ID\",\n        \"evidence\": \"Response contained PII for different user\"\n      }\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/jobs/submit-result",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "submit-result"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Security Testing",
+      "item": [
+        {
+          "name": "Run Security Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"https://api.example.com\",\n  \"testTypes\": [\"IDOR\", \"BOLA\", \"XSS\"],\n  \"depth\": \"FULL\",\n  \"includeGraphQL\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/security/run",
+              "host": ["{{base_url}}"],
+              "path": ["security", "run"]
+            }
+          }
+        },
+        {
+          "name": "Get Test Results",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/security/results?limit=10&severity=HIGH",
+              "host": ["{{base_url}}"],
+              "path": ["security", "results"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "severity",
+                  "value": "HIGH"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quantitative Analysis",
+      "item": [
+        {
+          "name": "Request Analysis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbols\": [\"AAPL\", \"GOOGL\", \"MSFT\"],\n  \"analysisType\": \"CORRELATION\",\n  \"timeframe\": \"30D\",\n  \"includeBacktest\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/quant/analyze",
+              "host": ["{{base_url}}"],
+              "path": ["quant", "analyze"]
+            }
+          }
+        },
+        {
+          "name": "Get Trading Signals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/quant/signals?symbol=AAPL&limit=5",
+              "host": ["{{base_url}}"],
+              "path": ["quant", "signals"],
+              "query": [
+                {
+                  "key": "symbol",
+                  "value": "AAPL"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Run Backtest",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/quant/backtest?strategy=MOMENTUM&period=2Y",
+              "host": ["{{base_url}}"],
+              "path": ["quant", "backtest"],
+              "query": [
+                {
+                  "key": "strategy",
+                  "value": "MOMENTUM"
+                },
+                {
+                  "key": "period",
+                  "value": "2Y"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Audit Logs",
+      "item": [
+        {
+          "name": "Get Audit Entry",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/audit/{entryId}",
+              "host": ["{{base_url}}"],
+              "path": ["audit", "{entryId}"],
+              "variable": [
+                {
+                  "key": "entryId",
+                  "value": "AUDIT-001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify Audit Entry",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/audit/verify/{entryId}",
+              "host": ["{{base_url}}"],
+              "path": ["audit", "verify", "{entryId}"],
+              "variable": [
+                {
+                  "key": "entryId",
+                  "value": "AUDIT-001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Query Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/audit/query?actor=admin&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["audit", "query"],
+              "query": [
+                {
+                  "key": "actor",
+                  "value": "admin"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Data Extraction",
+      "item": [
+        {
+          "name": "Extract Product Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"urls\": [\n    \"https://example-store.com/products/laptop\",\n    \"https://example-store.com/products/phone\"\n  ],\n  \"extractFields\": [\"price\", \"productName\", \"inventoryLevel\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/extract/products",
+              "host": ["{{base_url}}"],
+              "path": ["extract", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Extracted Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/extract/data?sourceDomain=example-store.com&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["extract", "data"],
+              "query": [
+                {
+                  "key": "sourceDomain",
+                  "value": "example-store.com"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
