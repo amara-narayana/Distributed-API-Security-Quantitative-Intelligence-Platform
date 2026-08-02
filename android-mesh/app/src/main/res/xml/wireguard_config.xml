@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- WireGuard Configuration Template -->
+<!-- This is a template for generating WireGuard peer configurations -->
+<WireGuardConfig xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Interface Configuration -->
+    <Interface>
+        <!-- Private key (generated per device) -->
+        <PrivateKey>{{DEVICE_PRIVATE_KEY}}</PrivateKey>
+        
+        <!-- IP address assigned to this interface -->
+        <Address>10.0.0.{{DEVICE_ID}}/32</Address>
+        
+        <!-- DNS servers -->
+        <DNS>8.8.8.8</DNS>
+        <DNS>8.8.4.4</DNS>
+        
+        <!-- MTU setting -->
+        <MTU>1420</MTU>
+    </Interface>
+    
+    <!-- Peer Configuration (Coordinator) -->
+    <Peer>
+        <!-- Public key of the coordinator -->
+        <PublicKey>{{COORDINATOR_PUBLIC_KEY}}</PublicKey>
+        
+        <!-- Endpoint address of the coordinator -->
+        <Endpoint>{{COORDINATOR_ENDPOINT}}:51820</Endpoint>
+        
+        <!-- Allowed IP ranges -->
+        <AllowedIPs>
+            <IP>10.0.0.0/24</IP>
+            <IP>0.0.0.0/0</IP>
+        </AllowedIPs>
+        
+        <!-- Persistent keepalive interval (seconds) -->
+        <PersistentKeepalive>25</PersistentKeepalive>
+    </Peer>
+    
+    <!-- Security Settings -->
+    <Security>
+        <!-- Enable encryption -->
+        <Encryption>true</Encryption>
+        
+        <!-- Key rotation interval (hours) -->
+        <KeyRotationInterval>24</KeyRotationInterval>
+        
+        <!-- Require mutual authentication -->
+        <MutualAuth>true</MutualAuth>
+    </Security>
+    
+</WireGuardConfig>

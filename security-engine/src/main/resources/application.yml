@@ -1,0 +1,30 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+logging:
+  level:
+    com.security: DEBUG
+    io.restassured: INFO
+    okhttp3: WARN
+
+security:
+  ai-agent-url: ${AI_AGENT_URL:http://localhost:8001}
+  backend-url: ${BACKEND_URL:http://localhost:8080}
+  
+test:
+  thread-pool-size: 10
+  request-timeout-seconds: 60
+  max-retries: 3
+  
+endpoints:
+  graphql-paths:
+    - /graphql
+    - /graph
+    - /api/graphql
+    - /v1/graphql
+    
+pii:
+  detect-emails: true
+  detect-phones: true
+  detect-ssn: true
+  detect-credit-cards: true
